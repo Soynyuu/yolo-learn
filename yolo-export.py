@@ -1,8 +1,13 @@
 from ultralytics import YOLO
 
-# Load a model
-model = YOLO("yolov8n.pt")  # load an official model
-model = YOLO("/workspaces/yolo-learn/runs/detect/train/weights/best.pt")  # load a custom trained model
+# Load the YOLOv8 model
+model = YOLO("yolov8n.pt")
 
-# Export the model
-model.export(format="tfjs")
+# Export the model to TF.js format
+model.export(format="tfjs")  # creates '/yolov8n_web_model'
+
+# Load the exported TF.js model
+tfjs_model = YOLO("./yolov8n_web_model")
+
+# Run inference
+results = tfjs_model("https://ultralytics.com/images/bus.jpg")
